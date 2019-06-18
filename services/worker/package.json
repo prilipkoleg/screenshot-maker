@@ -1,0 +1,44 @@
+{
+  "name": "screenshot-worker",
+  "version": "0.0.1",
+  "description": "Screenshot Maker: worker",
+  "main": "bin/www",
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "amqplib": "^0.5.3",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.2",
+    "joi": "^14.3.1",
+    "lodash": "^4.17.11",
+    "minio": "^7.0.7",
+    "mongoose": "^5.5.14",
+    "morgan": "^1.9.1",
+    "nconf": "^0.10.0",
+    "p-timeout": "^1.2.0",
+    "puppeteer": "^1.15.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.4",
+    "sharp": "^0.22.1",
+    "uuid": "^3.3.2",
+    "winston": "~2.4.4"
+  },
+  "nodemonConfig": {
+    "verbose": false,
+    "watch": [
+      ".env",
+      "./*"
+    ],
+    "ignore": [
+      ".idea",
+      ".git",
+      "./node_modules"
+    ]
+  }
+}

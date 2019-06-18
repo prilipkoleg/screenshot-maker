@@ -1,0 +1,19 @@
+version: "3"
+services:
+  skrm_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: pm2-docker process.json
+    container_name: "skrm_worker"
+    shm_size: 1gb
+    env_file: .env
+    volumes:
+      - .:/App
+      - /App/node_modules
+    networks:
+      - localnet
+    restart: always
+networks:
+  localnet:
+    external: true

@@ -1,0 +1,49 @@
+version: "3"
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb_localnet"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGODB_USER="user"
+      - MONGODB_PASS="pass"
+    volumes:
+      - ./VOLUMES/mongodb:/data/db
+    ports:
+      - 27017:27017
+    #    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    networks:
+      - localnet
+    restart: always
+  rabbit:
+    image: rabbitmq:3-management
+    container_name: "rabbit_localnet"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "HHFGKLJKDN"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "123456"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - 15672:15672
+      - 5672:5672
+    networks:
+      - localnet
+    restart: always
+  minio:
+    image: minio/minio
+    container_name: "minioS3_localnet"
+    volumes:
+      - ./VOLUMES/minio:/data
+    ports:
+      - 9000:9000
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio123
+    command: server /data
+    networks:
+      - localnet
+    restart: always
+networks:
+  localnet:
+    external: true

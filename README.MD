@@ -1,0 +1,36 @@
+### Screenshot Maker V 0.0.1
+
+----
+
+Test sandbox application where can be created and managed screenshots of WEB sites pages.
+
+Used:
+- `MiniO` storage https://min.io/
+- `RabbitMQ` https://www.rabbitmq.com/
+- `MongoDB` https://www.mongodb.com/
+- `MainApi` NodeJS service
+- `Worker` NodeJS service
+- `React` https://reactjs.org/ with https://github.com/mui-org/material-ui
+
+#### Start APP
+
+1. clone repo and move in it 
+    ```sh
+    git clone REPO && cd $_
+    ```
+2. add _.env_ files:
+    ```sh
+    cd ./services/main-api && cp .env.EXAMPLE .env
+    && cd -
+    && cd ./services/worker && && cp .env.EXAMPLE .env
+    ```
+3. up services (in separate terminal windows):
+    - `docker-compose up` - _RabbitMQ_, _MongoDB_, _MiniO_.
+    - `cd ./services/main-api && docker-compose up`
+    - `cd ./services/worker && docker-compose up`
+    - `cd ./services/react-spa && npm start`
+        <br>or with `http-server` (https://github.com/indexzero/http-server)
+        ```sh
+        cd ./services/react-spa && npm run build
+        && http-server ./build
+        ```

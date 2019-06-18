@@ -1,0 +1,12 @@
+{
+  "apps" : [{
+    "name"       : "app",
+    "script"     : "./bin/www",
+    "watch"      : true,
+    "ignore_watch" : [".idea", ".git", "node_modules"],
+    "watch_options": {
+      "followSymlinks": false,
+      "usePolling": true
+    }
+  }]
+}
