@@ -16,7 +16,7 @@ Used:
 
 1. clone repo and move in it 
     ```sh
-    git clone REPO && cd $_
+    git clone https://github.com/prilipkoleg/screenshot-maker && cd $_
     ```
 2. add _.env_ files:
     ```sh
@@ -28,7 +28,7 @@ Used:
     - `docker-compose up` - _RabbitMQ_, _MongoDB_, _MiniO_.
     - `cd ./services/main-api && docker-compose up`
     - `cd ./services/worker && docker-compose up`
-    - `cd ./services/react-spa && npm start`
+    - `cd ./services/react-spa && npm i && npm start`
         <br>or with `http-server` (https://github.com/indexzero/http-server)
         ```sh
         cd ./services/react-spa && npm run build
