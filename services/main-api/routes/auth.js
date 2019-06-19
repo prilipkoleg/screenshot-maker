@@ -7,7 +7,9 @@ const authService = require('../services/auth');
 const authRouter = express.Router();
 
 authRouter.post('/login', (req, res, next) => {
-  const authData = req.body;
+  const authData =
+    typeof req.body === 'object' && req.body !== null && req.body
+    || {};
 
   return User.authorize(authData.email, authData.password)
     .then(user => {

@@ -39,7 +39,7 @@ const UserSchema = new Schema({
 UserSchema.index({ email: 1 }, { unique: true });
 UserSchema.index({ username: 1, }, { unique: true });
 
-UserSchema.methods.encryptPassword = function(password) {
+UserSchema.methods.encryptPassword = (password) => {
   return crypto
     .createHmac('sha1', this.salt)
     .update(password)

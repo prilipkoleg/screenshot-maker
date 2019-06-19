@@ -1,10 +1,10 @@
 const uuid = require('uuid/v4');
 const jwt = require('jsonwebtoken');
 
-const config = require('../../config');
-const User = require('../../models/User');
-const UserSession = require('../../models/UserSession');
-const HttpErr = require('../../errors').HttpError;
+const config = require('../config');
+const User = require('../models/User');
+const UserSession = require('../models/UserSession');
+const HttpErr = require('../errors').HttpError;
 
 const getExpiredAt = {
   // token: () => new Date(+new Date() + 0.5 * 60 * 1000),
@@ -54,7 +54,7 @@ const service =  {
 
     return {
       token: service._getToken(user, refreshToken),
-      refreshToken
+      refreshToken,
     };
   },
 

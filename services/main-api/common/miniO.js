@@ -5,7 +5,7 @@ const logger = require('./logger');
 
 const minioClient = new Minio.Client(config.miniO.client);
 
-createBucketOnTotExists();
+createBucketOnNotExists();
 
 module.exports = {
   client: minioClient,
@@ -37,7 +37,7 @@ module.exports = {
       pathName,
       (error) => {
         if (error) {
-          logger.error(`[Minio] remove fromo '${bucketName}/${pathName}'`, error);
+          logger.error(`[Minio] remove from '${bucketName}/${pathName}'`, error);
           return reject(error);
         }
         return resolve();
@@ -46,7 +46,7 @@ module.exports = {
   }),
 };
 
-function createBucketOnTotExists() {
+function createBucketOnNotExists() {
   const bucketName = config.miniO.bucket.screenshots;
 
   minioClient.bucketExists(

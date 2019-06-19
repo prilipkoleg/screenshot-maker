@@ -22,7 +22,7 @@ Used:
     ```sh
     cd ./services/main-api && cp .env.EXAMPLE .env
     && cd -
-    && cd ./services/worker && && cp .env.EXAMPLE .env
+    && cd ./services/worker && cp .env.EXAMPLE .env
     ```
 3. up services (in separate terminal windows):
     - `docker-compose up` - _RabbitMQ_, _MongoDB_, _MiniO_.

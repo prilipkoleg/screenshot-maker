@@ -47,20 +47,14 @@ module.exports = {
 
     return Screenshot.findOne({_id: sceenshotId, userId})
       .then(doc => {
-        if (!doc) return next();
+        if (!doc) return next(); // 404
 
         return miniO.deleteScreenshot(doc.storagePath)
           .then(() => doc.delete())
           .then(() => res.send())
-          .catch(next)
-        throw new Error('Remove It from bucket too!!!!!');
-
-        return doc.delete()
-          .then(() => res.send());
+          .catch(next);
       })
       .catch(next);
-
-    // res.json({ mess: `will be DELETE by ${sceenshotId}`});
   },
 
   postCreate: (req, res, next) => {

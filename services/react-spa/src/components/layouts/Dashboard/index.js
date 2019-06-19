@@ -118,47 +118,6 @@ function DashboardLayout(components = {}) {
       )}
     </MuiThemeProvider>
   );
-
-  // return (
-  //   <Root config={config} style={{ minHeight: "100vh" }}>
-  //     <CssBaseline />
-  //     <Header
-  //       menuIcon={{
-  //         inactive: <MenuIcon />,
-  //         active: <ArrowBackIcon />
-  //       }}
-  //     >
-  //       {/* HEADER goes here */}
-  //       { HeaderContent ? <HeaderContent/> : ''}
-  //       {/* HEADER goes here */}
-  //     </Header>
-  //     <Nav
-  //       collapsedIcon={{
-  //         inactive: <ArrowBackIcon />,
-  //         active: <ArrowForwardIcon />
-  //       }}
-  //       header={
-  //         // you can provide fixed header inside nav
-  //         // change null to some react element
-  //         ctx => null
-  //       }
-  //     >
-  //       {/* NAV goes here */}
-  //       { NavContent ? <NavContent/> : ''}
-  //       {/* NAV goes here */}
-  //     </Nav>
-  //     <Content>
-  //       {/* CONTENT goes here */}
-  //       { PageContent ? <PageContent/> : ''}
-  //       {/* CONTENT goes here */}
-  //     </Content>
-  //     <Footer>
-  //       {/* FOOTER goes here */}
-  //       { FooterContent ? <FooterContent/> : ''}
-  //       {/* FOOTER goes here */}
-  //     </Footer>
-  //   </Root>
-  // )
 }
 
 export default DashboardLayout;

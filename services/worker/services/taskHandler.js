@@ -1,6 +1,6 @@
 const Screenshot = require('../models/Screenshot');
 const makeScreenshot = require('./makeScreenshot');
-const minio = require('../common/miniO');
+const miniO = require('../common/miniO');
 const resize = require('./imageResizer');
 
 module.exports = (task, cb) => {
@@ -24,7 +24,7 @@ module.exports = (task, cb) => {
       }
       return buffer;
     })
-    .then((buffer) => minio.saveScreenshot(storagePath, buffer))
+    .then((buffer) => miniO.saveScreenshot(storagePath, buffer))
     .then(() =>
       Screenshot.updateOne(
         { _id: screenshotId },

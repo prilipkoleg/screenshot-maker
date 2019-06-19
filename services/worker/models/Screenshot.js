@@ -39,7 +39,7 @@ const ScreenshotSchema = new Schema({
       type: mongoose.SchemaTypes.String,
       required: true,
       unique: false,
-      enum: ['created', 'inProgress', 'failed'],
+      enum: ['created', 'inProgress', 'failed', 'done'],
       default: 'created',
     },
     errorMessage: {

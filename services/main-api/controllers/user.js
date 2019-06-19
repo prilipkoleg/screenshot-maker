@@ -3,14 +3,6 @@ const User = require('../models/User');
 
 module.exports = {
 
-  // getAll: (req, res, next) => {
-  //   const screenshots = [];
-  //
-  //   // ... edit later
-  //
-  //   return res.json(screenshots);
-  // },
-  //
   getById: (req, res, next) => {
     const userId = req.params.userId;
 
@@ -27,12 +19,6 @@ module.exports = {
       .catch(next);
   },
 
-  // deleteById: (req, res, next) => {
-  //   const sceenshotId = req.params.screenshotId;
-  //
-  //   res.json({ mess: `will be DELETE by ${sceenshotId}`});
-  // },
-
   postCreate: (req, res, next) => {
     const userData = req.body;
     const withAuth = Boolean(req.query.auth);
@@ -44,11 +30,11 @@ module.exports = {
         .then(savedUser =>
           Promise.all([
             savedUser,
-            withAuth ? authService.issueTokenPair(req, savedUser) : Promise.resolve(),
+            withAuth ? authService.issueTokenPair(req, savedUser) : Promise.resolve({}),
           ])
         )
         .then( ([user, tokensPair = {}]) => res.send({ user: user.getPublicFields(), ...tokensPair }) )
-        .catch(next)
+        .catch(next);
     } catch (e) {
       next(e);
     }

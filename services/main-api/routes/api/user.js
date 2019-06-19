@@ -9,7 +9,6 @@ userRouter.route('/')
 
 userRouter.route('/:userId')
   .get(userController.getById)
-  .post(userController.postCreate)
 ;
 
 

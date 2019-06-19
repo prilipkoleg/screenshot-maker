@@ -14,7 +14,7 @@ const useRoutes = (app) => {
   app.use('/', indexRouter);
 
   app.use('/auth', authRouter);
-  app.use('/api/user/create', require('../controllers/user').postCreate);
+  app.post('/api/user/create', require('../controllers/user').postCreate);
   app.use('/api', authorizationJWT, apiRouter);
 };
 

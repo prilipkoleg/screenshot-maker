@@ -45,9 +45,9 @@ const browserHandler = {
   newPages: true, // open|close page for each task
   browser: {
     isLaunching: false,
-    instance: null
+    instance: null,
+    pages: new Map(),
   },
-  browserPages: new Map(),
 
   // ------- methods
   async browserLaunch() {
@@ -56,8 +56,7 @@ const browserHandler = {
     say('Launching browser ....');
 
     this.browser.isLaunching = true;
-    this.browserPages.clear();
-
+    this.browser.pages.clear();
 
     return puppeteer.launch(puppeteerConfigs.browser)
       .then((browser) => {
@@ -71,7 +70,7 @@ const browserHandler = {
   async browserKill() {
     if (this.browser.isLaunching) {return;}
     await this.browser.instance.close();
-    this.browserPages.clear();
+    this.browser.pages.clear();
     this.browser.instance = null;
 
     return Promise.resolve();
@@ -89,7 +88,7 @@ const browserHandler = {
   },
 
   async pageGetFree() {
-    const freePage = [...this.browserPages.entries()].find(([index, pageValue]) => !pageValue.busy);
+    const freePage = [...this.browser.pages.entries()].find(([index, pageValue]) => !pageValue.busy);
 
     if (freePage) {
       const [ pageIndex, data ] = freePage;
@@ -104,12 +103,12 @@ const browserHandler = {
       await this.browserLaunch();
     }
 
-    const pageIndex = this.browserPages.size + 1;
+    const pageIndex = this.browser.pages.size + 1;
     const ExceedingPagesLimit = pageIndex > LIMIT_BROWSER_PAGES;
 
     if (this.browser.isLaunching || ExceedingPagesLimit) {
       if (ExceedingPagesLimit) {
-        say(`All available '📕 ${this.browserPages.size}' pages are busy!`);
+        say(`All available '📕 ${this.browser.pages.size}' pages are busy!`);
       } else {
         say('Task are waiting for the browser!');
       }
@@ -120,7 +119,7 @@ const browserHandler = {
     const data = { busy: true };
     const setData = [pageIndex, data];
 
-    this.browserPages.set(...setData);
+    this.browser.pages.set(...setData);
     data.page = await this.browserCreatePage(pageIndex);
 
     say(`Page: ${formatPageNum(pageIndex)} -> created.`);
@@ -130,7 +129,7 @@ const browserHandler = {
 
   async pageSetFree(pageIndex) {
     // const timeLabel = `${formatPageNum(pageIndex)} close`;
-    const data = this.browserPages.get(pageIndex);
+    const data = this.browser.pages.get(pageIndex);
     if (data) {
       // console.time(timeLabel);
       if (data.page && this.newPages) {
@@ -147,7 +146,7 @@ const browserHandler = {
   },
 
   async pageReset(pageIndex) { // don't works as expected!
-    const page = this.browserPages.get(pageIndex);
+    const page = this.browser.pages.get(pageIndex);
     page.busy = true;
     try {
       await page.page.close();
