@@ -37,3 +37,7 @@ Simple schema:
         cd ./services/react-spa && npm run build
         && http-server ./build
         ```
+     
+---
+
+> Notice! For getting files from miniO as static, a *Bucket Policy* must have `*` Prefix. 
