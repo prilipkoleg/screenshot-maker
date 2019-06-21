@@ -12,6 +12,9 @@ Used:
 - `Worker` NodeJS service
 - `React` https://reactjs.org/ with https://github.com/mui-org/material-ui
 
+Simple schema:
+![Screenshot-Maker](Screenshot-Maker.jpg)
+
 #### Start APP
 
 1. clone repo and move in it 
