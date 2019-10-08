@@ -15,7 +15,6 @@
       </div>
       <div v-else>
 
-<!--        TEST NEW COMPONENT -->
         <md-list class="md-triple-line" :md-expand-single="true">
           <md-list-item md-expand v-for="(item) in screenshots"
                         :key="item._id"
@@ -46,85 +45,6 @@
 
           </md-list-item>
         </md-list>
-<!--        TEST NEW COMPONENT ENDS-->
-
-<!--        <md-list class="md-triple-line" :md-expand-single="true">
-          <md-list-item md-expand v-for="(item, index) in screenshots"
-                        :key="item._id"
-                        v-bind:item="item"
-                        :class="{
-                          'error-status': isScreenshotError(item),
-                          'inProgress-status': isScreenshotInProgress(item),
-                        }"
-          >
-
-            <md-icon>{{
-              isScreenshotError(item)
-                ? 'error'
-                : item.options.fullPage
-                  ? 'photo_album'
-                  : 'panorama'}}</md-icon>
-            <span class="md-list-item-text">{{item.link}}</span>
-            <div slot="md-expand">
-              <div class="md-layout md-gutter">
-                <div class="md-layout-item md-size-30 md-small-size-100">
-                  <div class="screenshot-image">
-                    <div class="inProgress-holder" v-if="isScreenshotInProgress(item)">
-                      <md-progress-spinner class="md-accent"
-                                           :md-stroke="5"
-                                           :md-diameter="80"
-                                           md-mode="indeterminate"
-                      ></md-progress-spinner>
-                    </div>
-                    <a v-else :href="getScreenshotSrc(item.storagePath)" target="_blank">
-                      <img :src="getScreenshotSrc(item.storagePath)"
-                           :alt="`Screenshot: '${item.link}'`"/>
-                    </a>
-                  </div>
-                </div>
-                <div class="md-layout-item md-size-55 md-small-size-100">
-                  <div class="screenshot-info">
-                    <md-table md-card>
-
-                      <md-table-row>
-                        <md-table-head>Property name</md-table-head>
-                        <md-table-head class="text-right">Value</md-table-head>
-                      </md-table-row>
-
-                      <md-table-row v-for="(value, name, index) in getScreenshotInfo(item)"
-                                    :key="index">
-                        <md-table-cell class="text-bold">{{name}}</md-table-cell>
-                        <md-table-cell v-html="value"
-                                       class="text-right md-table-cell-container">
-                        </md-table-cell>
-                      </md-table-row>
-
-                    </md-table>
-                  </div>
-                </div>
-                <div class="md-layout-item md-size-15 md-small-size-100">
-
-                  <div>
-                    <md-button class="md-raised md-primary"
-                               @click="handleScreenshotRecreate(item._id)">
-                      <md-icon class="md-primary">cached</md-icon>
-                      Recreate
-                    </md-button>
-                  </div>
-                  <div>
-                    <md-button class="md-raised md-accent"
-                               @click="handleScreenshotDelete(item._id)">
-                      <md-icon class="md-primary">delete</md-icon>
-                      Delete
-                    </md-button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </md-list-item>
-&lt;!&ndash;          <md-divider class=""></md-divider>&ndash;&gt;
-        </md-list>-->
 
       </div>
     </div>
@@ -140,18 +60,18 @@ import ScreenshotInfoListItem from '@/components/ScreenshotInfoListItem';
 
 export default {
   name: 'ScreenshotsList',
-  data() {
-    return {
-      loading: true,
-      screenshots: null,
-    };
-  },
+  data: () => ({
+    loading: true,
+    screenshots: null,
+  }),
   computed: {},
   methods: {
     async getScreenshots() {
       const data = await mainApi.screenshotsList().catch(/* TODO ADD ERRORS HANDLER */);
       data[0].task.status = 'inProgress';
       this.screenshots = data || [];
+
+      await this.$store.dispatch('screenshotFetchItems');
     },
     async updateScreenshotItemData(id) {
       const updatedData = await mainApi.screenshotGet(id).catch() || null;

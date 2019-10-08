@@ -10,7 +10,9 @@ Used:
 - `MongoDB` https://www.mongodb.com/
 - `MainApi` NodeJS service
 - `Worker` NodeJS service
-- `React` https://reactjs.org/ with https://github.com/mui-org/material-ui
+- Front - available:
+    - `VueJs` https://vuejs.org/ with https://vuematerial.io/
+    - `React` https://reactjs.org/ with https://github.com/mui-org/material-ui
 
 Simple schema:
 ![Screenshot-Maker](Screenshot-Maker.jpg)
@@ -31,13 +33,22 @@ Simple schema:
     - `docker-compose up` - _RabbitMQ_, _MongoDB_, _MiniO_.
     - `cd ./services/main-api && docker-compose up`
     - `cd ./services/worker && docker-compose up`
-    - `cd ./services/react-spa && npm i && npm start`
-        <br>or with `http-server` (https://github.com/indexzero/http-server)
-        ```sh
-        cd ./services/react-spa && npm run build
-        && http-server ./build
-        ```
-     
+    - front:
+        - **VueJs:** `cd ./services/vuejs-spa && npm i && npm start`
+            <br>or with `http-server`:
+            ```sh
+            cd ./services/vuejs-spa && npm run build
+            && http-server ./dist
+            ```
+        - **React:** `cd ./services/react-spa && npm i && npm start`
+            <br>or with `http-server`:
+            ```sh
+            cd ./services/react-spa && npm run build
+            && http-server ./build
+            ```
+
+... about `http-server` - https://github.com/indexzero/http-server
+
 ---
 
 > Notice! For getting files from miniO as static, a *Bucket Policy* must have `*` Prefix. 
